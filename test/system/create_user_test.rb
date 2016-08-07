@@ -18,7 +18,12 @@ class CreateUserTest < Rails::SystemTestCase
     fill_in_all_fields 'Name' => 'Arya'
     click_checkbox_label 'Admin'
 
-    press_enter
+    # only works on selenium right now
+    if Capybara.current_driver == :rack_test
+      click_on 'Create User'
+    else
+      press_enter
+    end
 
     assert_text 'Arya'
   end
